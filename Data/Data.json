@@ -119,7 +119,7 @@
 		{"id":116, "name":"Teostra Powder", "type":"MonsterParts"},
 		{"id":117, "name":"Teostra Tail", "type":"MonsterParts"},
 		{"id":118, "name":"Teostra Webbing", "type":"MonsterParts"}
-	]
+	],
 	"armors":
 	[
 		{"id":  1, "name":"Chainmail Headgear", "type":"Head", "rariry":1, "starter":true},
@@ -144,7 +144,7 @@
 		{"id": 20, "name":"Leather Mail", "type":"Body", "rariry":1, "starter":true},
 		{"id": 21, "name":"Alloy Mail", "type":"Body", "rariry":2},
 		{"id": 22, "name":"Bone Mail", "type":"Body", "rariry":2},
-		{"id": 23, "name":"Anja Mail", "type":"Body"}, "rariry":3,
+		{"id": 23, "name":"Anja Mail", "type":"Body", "rariry":3},
 		{"id": 24, "name":"Barroth Mail", "type":"Body", "rariry":3},
 		{"id": 25, "name":"Jagras Mail", "type":"Body", "rariry":3},
 		{"id": 26, "name":"Jyura Mail", "type":"Body", "rariry":3},
@@ -175,8 +175,8 @@
 		{"id": 49, "name":"Rath Soul Greaves", "type":"Legs", "rariry":4},
 		{"id": 50, "name":"Kushala Crus", "type":"Legs", "rariry":5},
 		{"id": 51, "name":"Nergigante Greaves", "type":"Legs", "rariry":5},
-		{"id": 52, "name":"Kaiser Greaves", "type":"Legs", "rariry":5},
-	]
+		{"id": 52, "name":"Kaiser Greaves", "type":"Legs", "rariry":5}
+	],
 	"weapons":[
 		{"id":  1, "name":"Hunter's Bow", "type":"Bow", "rariry":1, "starter":true},
 		{"id":  2, "name":"Hunter’s Stoutbow", "type":"Bow", "rariry":2},
