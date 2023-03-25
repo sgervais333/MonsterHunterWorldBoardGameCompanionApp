@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "D:\\Godot\\MyProjects\\MonsterHunterWorldBoardGameCompanionApp\\bin\\windows_64_debug.exe",
+      "commandLineArgs": "-e -path D:\\Godot\\MyProjects\\MonsterHunterWorldBoardGameCompanionApp",
+      "workingDirectory": "$(ProjectDir)",
+      "nativeDebugging": true
+    }
+  }
+}
