@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Screens/Splash.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/AutoLoad/Database.cs" type="Script" id=1]
 
-[node name="Splash" type="Node2D"]
+[node name="Data" type="Node"]
 script = ExtResource( 1 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

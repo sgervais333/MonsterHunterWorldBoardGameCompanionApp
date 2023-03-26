@@ -11,21 +11,27 @@ config_version=4
 [application]
 
 config/name="MonsterHunterWorldBoardGameCompanionApp"
-run/main_scene="res://Screens/Splash.tscn"
+run/main_scene="res://Screens/Application.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Data="*res://Scenes/AutoLoad/Database.tscn"
 
 [display]
 
 window/size/width=1080
-window/size/height=2400
+window/size/height=1920
 window/size/test_width=540
-window/size/test_height=1200
+window/size/test_height=960
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom_font="res://Ressources/Fonts/Arial.tres"
 
 [mono]
 
