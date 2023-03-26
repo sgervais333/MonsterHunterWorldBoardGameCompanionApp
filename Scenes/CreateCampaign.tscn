@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/UI/CreateCampaign.cs" type="Script" id=1]
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/NormalSmall.tres" type="StyleBox" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/HoverSmall.tres" type="StyleBox" id=4]
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/PressedSmall.tres" type="StyleBox" id=5]
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/DisabledSmall.tres" type="StyleBox" id=6]
+[ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=8]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.219608, 0.305882, 0.513726, 1 )
@@ -13,72 +15,81 @@ bg_color = Color( 0.219608, 0.305882, 0.513726, 1 )
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.384314, 0.384314, 0.384314, 1 )
 
-[node name="CreateCampaign" type="MarginContainer"]
+[node name="CreateCampaign" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 8 )
+script = ExtResource( 1 )
+
+[node name="Background" parent="." instance=ExtResource( 7 )]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 48
 custom_constants/margin_top = 110
 custom_constants/margin_left = 48
 custom_constants/margin_bottom = 32
-script = ExtResource( 1 )
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 margin_left = 48.0
 margin_top = 110.0
 margin_right = 1032.0
 margin_bottom = 1888.0
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 margin_right = 984.0
 margin_bottom = 649.0
 size_flags_horizontal = 3
 custom_constants/separation = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 margin_right = 984.0
 margin_bottom = 160.0
 
-[node name="Campaign" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Campaign" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_right = 822.0
 margin_bottom = 160.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer/Campaign"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Campaign"]
 margin_right = 822.0
 margin_bottom = 72.0
 text = "Campaign Name:"
 
-[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer/Campaign"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Campaign"]
 margin_top = 78.0
 margin_right = 822.0
 margin_bottom = 160.0
 text = "ABCDEFG"
+caret_blink = true
+caret_blink_speed = 0.5
 
-[node name="CreateCampaign" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="CreateCampaign" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_left = 826.0
 margin_right = 984.0
 margin_bottom = 160.0
 text = "Ok"
 
-[node name="Players" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="Players" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 margin_top = 163.0
 margin_right = 984.0
 margin_bottom = 649.0
 custom_constants/separation = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Players"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players"]
 margin_right = 984.0
 margin_bottom = 88.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Players/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/HBoxContainer"]
 margin_top = 8.0
 margin_right = 232.0
 margin_bottom = 80.0
 text = "Players:"
 
-[node name="AddPlayer" type="Button" parent="ScrollContainer/VBoxContainer/Players/HBoxContainer"]
+[node name="AddPlayer" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/HBoxContainer"]
 margin_left = 236.0
 margin_right = 291.0
 margin_bottom = 88.0
@@ -89,14 +100,14 @@ custom_styles/disabled = ExtResource( 6 )
 custom_styles/normal = ExtResource( 2 )
 text = "+"
 
-[node name="Player1" type="PanelContainer" parent="ScrollContainer/VBoxContainer/Players"]
+[node name="Player1" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players"]
 margin_top = 104.0
 margin_right = 984.0
 margin_bottom = 486.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Players/Player1"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1"]
 margin_right = 984.0
 margin_bottom = 382.0
 mouse_filter = 1
@@ -105,18 +116,18 @@ custom_constants/margin_top = 0
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer"]
 margin_left = 6.0
 margin_right = 978.0
 margin_bottom = 376.0
 size_flags_horizontal = 3
 custom_constants/separation = 14
 
-[node name="HSplitContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
 margin_right = 972.0
 margin_bottom = 88.0
 
-[node name="Player" type="Label" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="Player" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HSplitContainer"]
 margin_top = 8.0
 margin_right = 907.0
 margin_bottom = 80.0
@@ -124,7 +135,7 @@ size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 text = "Player 1"
 
-[node name="Delete" type="Button" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="Delete" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HSplitContainer"]
 margin_left = 911.0
 margin_right = 972.0
 margin_bottom = 88.0
@@ -136,56 +147,62 @@ custom_styles/normal = ExtResource( 2 )
 disabled = true
 text = "X"
 
-[node name="PlayerName" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
+[node name="PlayerName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
 margin_top = 102.0
 margin_right = 972.0
 margin_bottom = 184.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
 margin_top = 5.0
 margin_right = 189.0
 margin_bottom = 77.0
 text = "Name:"
 
-[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
 margin_left = 193.0
 margin_right = 972.0
 margin_bottom = 82.0
 size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
 
-[node name="HunterName" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
+[node name="HunterName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
 margin_top = 198.0
 margin_right = 972.0
 margin_bottom = 280.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HunterName"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HunterName"]
 margin_top = 5.0
 margin_right = 400.0
 margin_bottom = 77.0
 text = "Hunter Name:"
 
-[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HunterName"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HunterName"]
 margin_left = 404.0
 margin_right = 972.0
 margin_bottom = 82.0
 size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
 
-[node name="PalicoName" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
+[node name="PalicoName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
 margin_top = 294.0
 margin_right = 972.0
 margin_bottom = 376.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PalicoName"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PalicoName"]
 margin_top = 5.0
 margin_right = 382.0
 margin_bottom = 77.0
 text = "Palico Name:"
 
-[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PalicoName"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PalicoName"]
 margin_left = 386.0
 margin_right = 972.0
 margin_bottom = 82.0
 size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
 
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/CreateCampaign" to="." method="_on_CreateCampaign_pressed"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/Players/HBoxContainer/AddPlayer" to="." method="_on_AddPlayer_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CreateCampaign" to="." method="_on_CreateCampaign_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/Players/HBoxContainer/AddPlayer" to="." method="_on_AddPlayer_pressed"]

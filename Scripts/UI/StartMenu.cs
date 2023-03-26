@@ -1,7 +1,8 @@
 using Godot;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts.Extensions;
 using System;
 
-public class StartMenu : MarginContainer
+public class StartMenu : Control
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -18,4 +19,9 @@ public class StartMenu : MarginContainer
 //  {
 //      
 //  }
+
+    public void _on_New_Game_pressed()
+    {
+        this.ChangeScene("res://Scenes/CreateCampaign.tscn");
+    }
 }

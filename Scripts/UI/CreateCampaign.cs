@@ -3,26 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts.Data;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts.Extensions;
 using Array = Godot.Collections.Array;
 
-public class CreateCampaign : MarginContainer
+public class CreateCampaign : Control
 {
-    public class Player
-    {
-        public int Number;
-        public string Name;
-        public string HunterName;
-        public string PalicoName;
-
-        public Player(int number, string name, string hunterName, string palicoName)
-        {
-            Number = number;
-            Name = name;
-            HunterName = hunterName;
-            PalicoName = palicoName;
-        }
-    }
-
     private const string PlayerPath = "MarginContainer/VBoxContainer/";
 
     private Array<PanelContainer> _playersContainer;
@@ -32,7 +18,7 @@ public class CreateCampaign : MarginContainer
     {
         _playersContainer = new Array<PanelContainer>
         {
-            GetNode<PanelContainer>("ScrollContainer/VBoxContainer/Players/Player1")
+            GetNode<PanelContainer>("MarginContainer/ScrollContainer/VBoxContainer/Players/Player1")
         };
     }
 
@@ -95,7 +81,11 @@ public class CreateCampaign : MarginContainer
 
     public void _on_CreateCampaign_pressed()
     {
-        var v = GetPlayers();
+        string campaignName = GetNode<LineEdit>("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Campaign/LineEdit").Text;
 
+        CampaignData campaignData = this.GetCampaignData();
+        campaignData.Players = GetPlayers();
+
+        campaignData.SaveCampaign(campaignName);
     }
 }

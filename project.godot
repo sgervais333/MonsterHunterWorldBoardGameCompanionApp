@@ -11,12 +11,15 @@ config_version=4
 [application]
 
 config/name="MonsterHunterWorldBoardGameCompanionApp"
-run/main_scene="res://Screens/Application.tscn"
+run/main_scene="res://Scenes/StartMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Data="*res://Scenes/AutoLoad/Database.tscn"
+SceneTransition="*res://Scenes/AutoLoad/SceneTransition.tscn"
+TopBar="*res://Scenes/AutoLoad/TopBar.tscn"
+CampaignData="*res://Scenes/AutoLoad/CampaignData.cs"
 
 [display]
 
