@@ -52,16 +52,24 @@ public class MainCampaign : Control
 
     private void SetInfoForPlayer(int idPlayer)
     {
-        foreach (Node child in _commonItemsListContainer.GetChildren())
+        GenerateItemsList(_commonItemsListContainer, _commonMaterials, _itemTemplate, player => player.CommonItems, 0, idPlayer);
+        GenerateItemsList(_otherItemsListContainer, _otherMaterials, _itemTemplate, player => player.OtherItems, 1, idPlayer);
+    }
+
+    private void GenerateItemsList(Control listContainer, IReadOnlyDictionary<int, Material> materials, Control itemTemplate, Func<Player, Dictionary<int, int>> getPlayerItems, int materialOrOtherOrParts, int idPlayer)
+    {
+        foreach (Node child in listContainer.GetChildren())
         {
             child.QueueFree();
         }
-        foreach (Material material in _commonMaterials.Values)
+        foreach (Material material in materials.Values)
         {
             Player player = this.GetCampaignData().Players[idPlayer];
             int commonItemQty = 0;
-            if (player.CommonItems.ContainsKey(material.Id)) commonItemQty = player.CommonItems[material.Id];
-            if (_itemTemplate.Duplicate(0) is Control item)
+            
+
+            if (getPlayerItems(player).ContainsKey(material.Id)) commonItemQty = getPlayerItems(player)[material.Id];
+            if (itemTemplate.Duplicate(0) is Control item)
             {
                 item.Name = $"{material.Name}";
                 item.Visible = true;
@@ -72,35 +80,11 @@ public class MainCampaign : Control
                 qtyLabel.Text = commonItemQty.ToString();
 
                 Button plusButton = item.GetNode<Button>("MarginContainer/PlusButton");
-                plusButton.Connect("pressed", this, nameof(_on_CommonItemPlus_pressed), new Array(qtyLabel, material.Id));
+                plusButton.Connect("pressed", this, nameof(_on_ItemPlus_pressed), new Array(qtyLabel, material.Id, 1, materialOrOtherOrParts));
                 Button minusButton = item.GetNode<Button>("MarginContainer/MinusButton");
-                minusButton.Connect("pressed", this, nameof(_on_CommonItemMinus_pressed), new Array(qtyLabel, material.Id));
-                _commonItemsListContainer.AddChild(item);
-                _commonItemsListContainer.Owner = Owner;
-            }
-        }
-        //TODO: Centraliser
-        foreach (Material material in _otherMaterials.Values)
-        {
-            Player player = this.GetCampaignData().Players[idPlayer];
-            int otherItemQty = 0;
-            if (player.OtherItems.ContainsKey(material.Id)) otherItemQty = player.OtherItems[material.Id];
-            if (_itemTemplate.Duplicate(0) is Control item)
-            {
-                item.Name = $"{material.Name}";
-                item.Visible = true;
-                item.GetNode<Label>("Name").Text = material.Name;
-                Texture texture = ResourceLoader.Load($"res://Ressources/Items/{(!string.IsNullOrEmpty(material.Image) ? material.Image : "Unknown")}.png") as Texture;
-                if (material.Image != string.Empty) item.GetNode<TextureRect>("Icon").Texture = texture;
-                Label qtyLabel = item.GetNode<Label>("MarginContainer/Number");
-                qtyLabel.Text = otherItemQty.ToString();
-
-                Button plusButton = item.GetNode<Button>("MarginContainer/PlusButton");
-                plusButton.Connect("pressed", this, nameof(_on_OtherItemPlus_pressed), new Array(qtyLabel, material.Id));
-                Button minusButton = item.GetNode<Button>("MarginContainer/MinusButton");
-                minusButton.Connect("pressed", this, nameof(_on_OtherItemMinus_pressed), new Array(qtyLabel, material.Id));
-                _otherItemsListContainer.AddChild(item);
-                _otherItemsListContainer.Owner = Owner;
+                minusButton.Connect("pressed", this, nameof(_on_ItemPlus_pressed), new Array(qtyLabel, material.Id, -1, materialOrOtherOrParts));
+                listContainer.AddChild(item);
+                listContainer.Owner = Owner;
             }
         }
     }
@@ -126,78 +110,36 @@ public class MainCampaign : Control
         UpdateCampaign();
     }
 
-    public void _on_CommonItemPlus_pressed(Label qtyLabel, int id)
+    public void _on_ItemPlus_pressed(Label qtyLabel, int id, int qtyToAdd, int materialOrOtherOrParts)
     {
-        Material material = _commonMaterials[id];
+        Material material = null;
+        Dictionary<int, int> items = null;
         Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
-        if (player.CommonItems.ContainsKey(material.Id))
+        switch (materialOrOtherOrParts)
         {
-            player.CommonItems[material.Id]++;
-            qtyLabel.Text = player.CommonItems[material.Id].ToString();
+            case 0: 
+                material = _commonMaterials[id];
+                items = player.CommonItems;
+                break;
+            case 1: 
+                material = _otherMaterials[id];
+                items = player.OtherItems;
+                break;
+            case 2: 
+                material = _monsterPartsMaterials[id];
+                items = new Dictionary<int, int>();//items = player.Monster;
+                break;
+            default: return;
+        }
+        if (items.ContainsKey(material.Id))
+        {
+            items[material.Id] = items[material.Id] + qtyToAdd >= 0 ? items[material.Id] + qtyToAdd : 0;
+            qtyLabel.Text = items[material.Id].ToString();
         }
         else
         {
-            player.CommonItems.Add(material.Id, 1);
+            items.Add(material.Id, qtyToAdd > 0 ? 1 : 0);
             qtyLabel.Text = 1.ToString();
-        }
-        UpdateCampaign();
-    }
-
-    public void _on_CommonItemMinus_pressed(Label qtyLabel, int id)
-    {
-        Material material = _commonMaterials[id];
-        Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
-        if (player.CommonItems.ContainsKey(material.Id))
-        {
-            if (player.CommonItems[material.Id] > 0)
-            {
-                player.CommonItems[material.Id]--;
-                qtyLabel.Text = player.CommonItems[material.Id].ToString();
-            }
-        }
-        else
-        {
-            player.CommonItems.Add(material.Id, 0);
-            qtyLabel.Text = 0.ToString();
-        }
-        UpdateCampaign();
-    }
-
-    //Centraliser
-    public void _on_OtherItemPlus_pressed(Label qtyLabel, int id)
-    {
-        Material material = _otherMaterials[id];
-        Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
-        if (player.OtherItems.ContainsKey(material.Id))
-        {
-            player.OtherItems[material.Id]++;
-            qtyLabel.Text = player.OtherItems[material.Id].ToString();
-        }
-        else
-        {
-            player.OtherItems.Add(material.Id, 1);
-            qtyLabel.Text = 1.ToString();
-        }
-        UpdateCampaign();
-    }
-
-    //Centraliser
-    public void _on_OtherItemMinus_pressed(Label qtyLabel, int id)
-    {
-        Material material = _otherMaterials[id];
-        Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
-        if (player.OtherItems.ContainsKey(material.Id))
-        {
-            if (player.OtherItems[material.Id] > 0)
-            {
-                player.OtherItems[material.Id]--;
-                qtyLabel.Text = player.OtherItems[material.Id].ToString();
-            }
-        }
-        else
-        {
-            player.OtherItems.Add(material.Id, 0);
-            qtyLabel.Text = 0.ToString();
         }
         UpdateCampaign();
     }
