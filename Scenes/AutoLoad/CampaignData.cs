@@ -29,26 +29,36 @@ public class CampaignData : Node, IDictionable
 
     public void LoadCampaign(Dictionary dict)
     {
+        CampaignName = dict.Contains("CampaignName") ? (string)dict["CampaignName"] : null;
         NumberOfPotions = (int)(dict.Contains("NumberOfPotions") ? (float)dict["NumberOfPotions"] : 0f);
         Players = (from Dictionary item in (Array)dict["Players"] select new Player(item)).ToList();
         Loaded = true;
     }
 
-    public void SaveCampaign(string campaignName)
+    public void SaveCampaign(string campaignName = null)
     {
-        CampaignName = campaignName;
-        CreateDirectoryIfNotExist();
+        if (CampaignName != null || campaignName != null)
+        {
+            string campaignToSave = campaignName ?? CampaignName;
+            CampaignName = campaignToSave;
+            CreateDirectoryIfNotExist();
 
-        File file = new File();
-        file.Open($"{CampaignFolder}/{campaignName}", File.ModeFlags.WriteRead);
-        file.StoreLine(JSON.Print(ToDict()));
-        file.Close();
-        Loaded = true;
+            File file = new File();
+            file.Open($"{CampaignFolder}/{campaignToSave}", File.ModeFlags.WriteRead);
+            file.StoreLine(JSON.Print(ToDict()));
+            file.Close();
+            Loaded = true;
+        }
+        else
+        {
+            GD.PrintErr("MustHaveACampaignLoaded");
+        }
     }
 
     public Godot.Collections.Dictionary<string, object> ToDict() =>
         new Godot.Collections.Dictionary<string, object>
         {
+            {nameof(CampaignName), CampaignName},
             {nameof(NumberOfPotions), NumberOfPotions},
             {nameof(Players), Players.ToGodotArray()},
         };

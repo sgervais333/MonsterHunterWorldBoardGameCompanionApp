@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts.Extensions;
 
 namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
 {
@@ -9,10 +12,12 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
         public string HunterName;
         public string PalicoName;
         public Dictionary<int, int> CommonItems;
+        public Dictionary<int, int> OtherItems;
 
         public Player(int number, string name, string hunterName, string palicoName)
         {
             CommonItems = new Dictionary<int, int>();
+            OtherItems = new Dictionary<int, int>();
             Number = number;
             Name = name;
             HunterName = hunterName;
@@ -21,7 +26,8 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
 
         public Player(Godot.Collections.Dictionary dict)
         {
-            CommonItems = new Dictionary<int, int>();
+            CommonItems = dict.Contains("CommonItems") ? ((Godot.Collections.Dictionary)dict["CommonItems"]).ToSystemDict<int>() : new Dictionary<int, int>();
+            OtherItems = dict.Contains("OtherItems") ? ((Godot.Collections.Dictionary)dict["OtherItems"]).ToSystemDict<int>() : new Dictionary<int, int>();
             Number = (int)(dict.Contains("Number") ? (float)dict["Number"] : 0f);
             Name = dict.Contains("Name") ? (string)dict["Name"] : null;
             HunterName = dict.Contains("HunterName") ? (string)dict["HunterName"] : null;
@@ -35,7 +41,8 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
                 { nameof(Name), Name },
                 { nameof(HunterName), HunterName },
                 { nameof(PalicoName), PalicoName },
-                { nameof(CommonItems), new Godot.Collections.Dictionary(CommonItems) }
+                { nameof(CommonItems), new Godot.Collections.Dictionary(CommonItems) },
+                { nameof(OtherItems), new Godot.Collections.Dictionary(OtherItems) }
             };
     }
 }
