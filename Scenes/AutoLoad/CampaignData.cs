@@ -1,15 +1,16 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using Godot.Collections;
 using MonsterHunterWorldBoardGameCompanionApp.Scripts.Data;
-using Array = Godot.Collections.Array;
+using System.Collections.Generic;
+using System.Linq;
+using Godot.Collections;
 
-public class CampaignData : Node
+public class CampaignData : Node, IDictionable
 {
-    private const string CampaignFolder = "user://campaign";
+    public const string CampaignFolder = "user://campaign";
 
+    public bool Loaded = false;
     public string CampaignName;
+    public int NumberOfPotions;
     public List<Player> Players;
 
     public override void _Ready()
@@ -26,6 +27,13 @@ public class CampaignData : Node
 
     }
 
+    public void LoadCampaign(Dictionary dict)
+    {
+        NumberOfPotions = (int)(dict.Contains("NumberOfPotions") ? (float)dict["NumberOfPotions"] : 0f);
+        Players = (from Dictionary item in (Array)dict["Players"] select new Player(item)).ToList();
+        Loaded = true;
+    }
+
     public void SaveCampaign(string campaignName)
     {
         CampaignName = campaignName;
@@ -33,12 +41,17 @@ public class CampaignData : Node
 
         File file = new File();
         file.Open($"{CampaignFolder}/{campaignName}", File.ModeFlags.WriteRead);
-
-        foreach (Player player in Players)
-        {
-            file.StoreLine(JSON.Print(player.AsDict()));
-        }
+        file.StoreLine(JSON.Print(ToDict()));
         file.Close();
+        Loaded = true;
     }
+
+    public Godot.Collections.Dictionary<string, object> ToDict() =>
+        new Godot.Collections.Dictionary<string, object>
+        {
+            {nameof(NumberOfPotions), NumberOfPotions},
+            {nameof(Players), Players.ToGodotArray()},
+        };
+
 
 }

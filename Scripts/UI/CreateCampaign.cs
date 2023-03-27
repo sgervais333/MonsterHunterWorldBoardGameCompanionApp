@@ -87,5 +87,6 @@ public class CreateCampaign : Control
         campaignData.Players = GetPlayers();
 
         campaignData.SaveCampaign(campaignName);
+        this.ChangeScene("res://Screens/MainCampaign.tscn", removeLastBreadcrumbScenesPath: true);
     }
 }

@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scripts/UI/StartMenu.cs" type="Script" id=1]
+[ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=3]
+[ext_resource path="res://Scripts/UI/StartMenu.cs" type="Script" id=3]
 
 [node name="StartMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 3 )
-script = ExtResource( 1 )
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
 
@@ -28,16 +28,17 @@ margin_bottom = 1888.0
 custom_constants/separation = 32
 alignment = 1
 
-[node name="New Game" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="New Campaign" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 731.0
 margin_right = 984.0
 margin_bottom = 873.0
-text = "New Game"
+text = "New Campaign"
 
-[node name="Load Game" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Load Campaign" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 905.0
 margin_right = 984.0
 margin_bottom = 1047.0
-text = "Load Game"
+text = "Load Campaign"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/New Game" to="." method="_on_New_Game_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/New Campaign" to="." method="_on_New_Game_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Load Campaign" to="." method="_on_Load_Game_pressed"]
