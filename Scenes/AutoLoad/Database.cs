@@ -34,23 +34,23 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
 
         public void RequestData()
         {
-            if (CheckIfDataExist())
-            {
-                File file = new File();
-                file.Open(DataFile, File.ModeFlags.Read);
-                JSONParseResult jsonResult = JSON.Parse(file.GetAsText());
-                LoadJson(jsonResult);
-                file.Close();
-            }
-            else
-            {
+            //if (CheckIfDataExist())
+            //{
+            //    File file = new File();
+            //    file.Open(DataFile, File.ModeFlags.Read);
+            //    JSONParseResult jsonResult = JSON.Parse(file.GetAsText());
+            //    LoadJson(jsonResult);
+            //    file.Close();
+            //}
+            //else
+            //{
                 _httpRequest.Connect("request_completed", this, nameof(HttpRequestCompleted));
                 Error testConnection = _httpRequest.Request("https://raw.githubusercontent.com/sgervais333/MonsterHunterWorldBoardGameCompanionApp/main/Data/Data.json");
                 if (testConnection != Error.Ok)
                 {
                     GD.PushError("An error occurred in the HTTP request.");
                 }
-            }
+            //}
         }
 
         public void SaveData(byte[] body)
