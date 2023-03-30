@@ -16,8 +16,10 @@ public class MainCampaign : Control
     private Control _itemTemplate;
     private Control _commonItemsContainer;
     private Control _otherItemsContainer;
+    private Control _materialItemsContainer;
     private Control _commonItemsListContainer;
     private Control _otherItemsListContainer;
+    private Control _materialItemsListContainer;
     private IReadOnlyDictionary<int, Material> _commonMaterials;
     private IReadOnlyDictionary<int, Material> _otherMaterials;
     private IReadOnlyDictionary<int, Material> _monsterPartsMaterials;
@@ -33,7 +35,10 @@ public class MainCampaign : Control
         _commonItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Common");
         _otherItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Other");
         _otherItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems");
+        _materialItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Material");
+        _materialItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems");
 
+        //_optionButtonPlayer.AddItem("All", 0);
         foreach (Player campaignDataPlayer in _campaignData.Players)
         {
             _optionButtonPlayer.AddItem(campaignDataPlayer.Name, campaignDataPlayer.Number);
@@ -54,6 +59,7 @@ public class MainCampaign : Control
     {
         GenerateItemsList(_commonItemsListContainer, _commonMaterials, _itemTemplate, player => player.CommonItems, 0, idPlayer);
         GenerateItemsList(_otherItemsListContainer, _otherMaterials, _itemTemplate, player => player.OtherItems, 1, idPlayer);
+        GenerateItemsList(_materialItemsListContainer, _monsterPartsMaterials, _itemTemplate, player => player.MaterialItems, 2, idPlayer);
     }
 
     private void GenerateItemsList(Control listContainer, IReadOnlyDictionary<int, Material> materials, Control itemTemplate, Func<Player, Dictionary<int, int>> getPlayerItems, int materialOrOtherOrParts, int idPlayer)
@@ -127,7 +133,7 @@ public class MainCampaign : Control
                 break;
             case 2: 
                 material = _monsterPartsMaterials[id];
-                items = new Dictionary<int, int>();//items = player.Monster;
+                items = player.MaterialItems;
                 break;
             default: return;
         }
@@ -164,5 +170,14 @@ public class MainCampaign : Control
         if (buttonPressed) _otherItemsContainer.SizeFlagsVertical += (int)SizeFlags.ExpandFill;
         if (!buttonPressed) _otherItemsContainer.SizeFlagsVertical -= (int)SizeFlags.ExpandFill;
     }
-    
+
+    public void _on_MaterialExpand_toggled(bool buttonPressed)
+    {
+        _materialItemsListContainer.Visible = buttonPressed;
+        _materialItemsContainer.SizeFlagsVertical = 0;
+        if (buttonPressed) _materialItemsContainer.SizeFlagsVertical += (int)SizeFlags.ExpandFill;
+        if (!buttonPressed) _materialItemsContainer.SizeFlagsVertical -= (int)SizeFlags.ExpandFill;
+    }
+
+
 }

@@ -116,7 +116,7 @@ size_flags_vertical = 3
 
 [node name="CommonItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_right = 984.0
-margin_bottom = 1248.0
+margin_bottom = 1074.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 
@@ -130,7 +130,7 @@ text = "Commons V"
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems"]
 margin_top = 142.0
 margin_right = 984.0
-margin_bottom = 1248.0
+margin_bottom = 1074.0
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
@@ -204,9 +204,9 @@ size_flags_vertical = 3
 custom_constants/separation = 8
 
 [node name="OtherItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 1280.0
+margin_top = 1106.0
 margin_right = 984.0
-margin_bottom = 1422.0
+margin_bottom = 1248.0
 custom_constants/separation = 0
 
 [node name="OtherExpand" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems"]
@@ -290,8 +290,96 @@ margin_right = 984.0
 size_flags_vertical = 0
 custom_constants/separation = 8
 
+[node name="MaterialItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 1280.0
+margin_right = 984.0
+margin_bottom = 1422.0
+custom_constants/separation = 0
+
+[node name="MaterialExpand" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems"]
+margin_right = 984.0
+margin_bottom = 142.0
+toggle_mode = true
+text = "Monster Parts V"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems"]
+margin_top = 142.0
+margin_right = 984.0
+margin_bottom = 142.0
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer"]
+margin_right = 984.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="Templates" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer"]
+margin_right = 984.0
+
+[node name="ItemTemplate" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates"]
+visible = false
+margin_left = -6.0
+margin_top = 1143.0
+margin_right = 978.0
+margin_bottom = 1287.0
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
+margin_right = 144.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 144, 144 )
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
+margin_left = 148.0
+margin_top = 36.0
+margin_right = 564.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+text = "Malachite Ore"
+autowrap = true
+
+[node name="MarginContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
+margin_left = 568.0
+margin_right = 984.0
+margin_bottom = 144.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MinusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
+margin_left = 24.0
+margin_right = 168.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 144, 144 )
+text = "-"
+
+[node name="Number" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
+margin_left = 172.0
+margin_top = 24.0
+margin_right = 268.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 96, 96 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="PlusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
+margin_left = 272.0
+margin_right = 416.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 144, 144 )
+text = "+"
+
+[node name="Material" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer"]
+margin_right = 984.0
+size_flags_vertical = 0
+custom_constants/separation = 8
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionMinus" to="." method="_on_PotionMinus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionPlus" to="." method="_on_PotionPlus_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButtonPlayer" to="." method="_on_OptionButtonPlayer_item_selected"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/CommonExpand" to="." method="_on_CommonExpand_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/OtherExpand" to="." method="_on_OtherExpand_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/MaterialExpand" to="." method="_on_MaterialExpand_toggled"]

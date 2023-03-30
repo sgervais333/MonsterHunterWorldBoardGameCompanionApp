@@ -13,6 +13,7 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
         public string PalicoName;
         public Dictionary<int, int> CommonItems;
         public Dictionary<int, int> OtherItems;
+        public Dictionary<int, int> MaterialItems;
 
         public Player(int number, string name, string hunterName, string palicoName)
         {
@@ -28,6 +29,7 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
         {
             CommonItems = dict.Contains("CommonItems") ? ((Godot.Collections.Dictionary)dict["CommonItems"]).ToSystemDict<int>() : new Dictionary<int, int>();
             OtherItems = dict.Contains("OtherItems") ? ((Godot.Collections.Dictionary)dict["OtherItems"]).ToSystemDict<int>() : new Dictionary<int, int>();
+            MaterialItems = dict.Contains("MaterialItems") ? ((Godot.Collections.Dictionary)dict["MaterialItems"]).ToSystemDict<int>() : new Dictionary<int, int>();
             Number = (int)(dict.Contains("Number") ? (float)dict["Number"] : 0f);
             Name = dict.Contains("Name") ? (string)dict["Name"] : null;
             HunterName = dict.Contains("HunterName") ? (string)dict["HunterName"] : null;
@@ -42,7 +44,8 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
                 { nameof(HunterName), HunterName },
                 { nameof(PalicoName), PalicoName },
                 { nameof(CommonItems), new Godot.Collections.Dictionary(CommonItems) },
-                { nameof(OtherItems), new Godot.Collections.Dictionary(OtherItems) }
+                { nameof(OtherItems), new Godot.Collections.Dictionary(OtherItems) },
+                { nameof(MaterialItems), new Godot.Collections.Dictionary(MaterialItems) }
             };
     }
 }
