@@ -38,7 +38,7 @@ public class MainCampaign : Control
         _materialItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Material");
         _materialItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems");
 
-        //_optionButtonPlayer.AddItem("All", 0);
+        _optionButtonPlayer.AddItem("All", -1);
         foreach (Player campaignDataPlayer in _campaignData.Players)
         {
             _optionButtonPlayer.AddItem(campaignDataPlayer.Name, campaignDataPlayer.Number);
@@ -70,11 +70,9 @@ public class MainCampaign : Control
         }
         foreach (Material material in materials.Values)
         {
-            Player player = this.GetCampaignData().Players[idPlayer];
-            int commonItemQty = 0;
-            
 
-            if (getPlayerItems(player).ContainsKey(material.Id)) commonItemQty = getPlayerItems(player)[material.Id];
+            Player[] players = idPlayer == 0 ? this.GetCampaignData().Players.ToArray() : new []{ this.GetCampaignData().Players[idPlayer-1] };
+
             if (itemTemplate.Duplicate(0) is Control item)
             {
                 item.Name = $"{material.Name}";
@@ -83,7 +81,15 @@ public class MainCampaign : Control
                 Texture texture = ResourceLoader.Load($"res://Ressources/Items/{(!string.IsNullOrEmpty(material.Image) ? material.Image : "Unknown")}.png") as Texture;
                 if (material.Image != string.Empty) item.GetNode<TextureRect>("Icon").Texture = texture;
                 Label qtyLabel = item.GetNode<Label>("MarginContainer/Number");
-                qtyLabel.Text = commonItemQty.ToString();
+                List<int> qties = new List<int>();
+                foreach (Player player in players)
+                {
+                    qties.Add(getPlayerItems(player).ContainsKey(material.Id)
+                        ? getPlayerItems(player)[material.Id]
+                        : 0);
+                }
+
+                qtyLabel.Text = string.Join("/", qties);
 
                 Button plusButton = item.GetNode<Button>("MarginContainer/PlusButton");
                 plusButton.Connect("pressed", this, nameof(_on_ItemPlus_pressed), new Array(qtyLabel, material.Id, 1, materialOrOtherOrParts));
@@ -118,35 +124,42 @@ public class MainCampaign : Control
 
     public void _on_ItemPlus_pressed(Label qtyLabel, int id, int qtyToAdd, int materialOrOtherOrParts)
     {
-        Material material = null;
-        Dictionary<int, int> items = null;
-        Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
-        switch (materialOrOtherOrParts)
+        //Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
+        Player[] players = _optionButtonPlayer.Selected == 0 ? this.GetCampaignData().Players.ToArray() : new[] { this.GetCampaignData().Players[_optionButtonPlayer.Selected - 1] };
+        List<int> qties = new List<int>();
+        foreach (Player player in players)
         {
-            case 0: 
-                material = _commonMaterials[id];
-                items = player.CommonItems;
-                break;
-            case 1: 
-                material = _otherMaterials[id];
-                items = player.OtherItems;
-                break;
-            case 2: 
-                material = _monsterPartsMaterials[id];
-                items = player.MaterialItems;
-                break;
-            default: return;
+            Material material = null;
+            Dictionary<int, int> items = null;
+            switch (materialOrOtherOrParts)
+            {
+                case 0:
+                    material = _commonMaterials[id];
+                    items = player.CommonItems;
+                    break;
+                case 1:
+                    material = _otherMaterials[id];
+                    items = player.OtherItems;
+                    break;
+                case 2:
+                    material = _monsterPartsMaterials[id];
+                    items = player.MaterialItems;
+                    break;
+                default: return;
+            }
+            if (items.ContainsKey(material.Id))
+            {
+                items[material.Id] = items[material.Id] + qtyToAdd >= 0 ? items[material.Id] + qtyToAdd : 0;
+                qties.Add(items[material.Id]);
+            }
+            else
+            {
+                int q = qtyToAdd > 0 ? 1 : 0;
+                items.Add(material.Id, q);
+                qties.Add(q);
+            }
         }
-        if (items.ContainsKey(material.Id))
-        {
-            items[material.Id] = items[material.Id] + qtyToAdd >= 0 ? items[material.Id] + qtyToAdd : 0;
-            qtyLabel.Text = items[material.Id].ToString();
-        }
-        else
-        {
-            items.Add(material.Id, qtyToAdd > 0 ? 1 : 0);
-            qtyLabel.Text = 1.ToString();
-        }
+        qtyLabel.Text = string.Join("/", qties);
         UpdateCampaign();
     }
 
