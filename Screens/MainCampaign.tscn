@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/UI/MainCampaign.cs" type="Script" id=1]
 [ext_resource path="res://Ressources/Items/Potion_Green.png" type="Texture" id=2]
+[ext_resource path="res://Ressources/Fonts/ArialSmall.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Ressources/Items/Unknown.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=8]
@@ -164,6 +165,7 @@ margin_top = 36.0
 margin_right = 564.0
 margin_bottom = 108.0
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
 text = "Malachite Ore"
 autowrap = true
 
@@ -187,6 +189,7 @@ margin_top = 24.0
 margin_right = 268.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 96, 96 )
+custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 1
 valign = 1

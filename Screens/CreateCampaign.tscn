@@ -63,7 +63,7 @@ text = "Campaign Name:"
 margin_top = 78.0
 margin_right = 822.0
 margin_bottom = 160.0
-text = "ABCDEFG"
+text = "Campaign 1"
 caret_blink = true
 caret_blink_speed = 0.5
 

@@ -19,6 +19,7 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scripts.Data
         {
             CommonItems = new Dictionary<int, int>();
             OtherItems = new Dictionary<int, int>();
+            MaterialItems = new Dictionary<int, int>();
             Number = number;
             Name = name;
             HunterName = hunterName;
