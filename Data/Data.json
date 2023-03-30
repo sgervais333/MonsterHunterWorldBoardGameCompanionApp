@@ -1,5 +1,5 @@
 {
-	"version":1,
+	"version":0.1,
 	"materials":
 	[
 		{"id": 1, "name":"Ancient Bone", "type":"Common", "image":"Bone_Green"},
@@ -25,10 +25,10 @@
 		{"id": 21, "name":"Elder Dragon Blood", "type":"Other", "image":"Potion_Red"},
 		{"id": 22, "name":"Elder Dragon Bone", "type":"Other", "image":"Bone_Purple"},
 		{"id": 23, "name":"Electrode", "type":"Other", "image":"Medulla_Cyan"},
-		{"id": 24, "name":"Electro Sac", "type":"Other"},
-		{"id": 25, "name":"Fertile Mud", "type":"Other"},
-		{"id": 26, "name":"Firecell Stone", "type":"Other"},
-		{"id": 27, "name":"Fire Dragon Scale", "type":"Other"},
+		{"id": 24, "name":"Electro Sac", "type":"Other", "image":"Sac_Yellow"},
+		{"id": 25, "name":"Fertile Mud", "type":"Other", "image":"Dung_Brown"},
+		{"id": 26, "name":"Firecell Stone", "type":"Other", "image":"Ore_Orange"},
+		{"id": 27, "name":"Fire Dragon Scale", "type":"Other", "image":"Scale_Red"},
 		{"id": 28, "name":"Flame Sac", "type":"Other"},
 		{"id": 29, "name":"Gajau Scale", "type":"Other"},
 		{"id": 30, "name":"Immortal Dragonscale", "type":"Other"},

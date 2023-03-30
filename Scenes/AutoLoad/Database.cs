@@ -10,6 +10,7 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
 {
     public class Database : Node
     {
+        public float Version;
         public List<Material> Materials;
         public List<Armor> Armors;
         public List<Weapon> Weapons;
@@ -44,13 +45,19 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
             //}
             //else
             //{
-                _httpRequest.Connect("request_completed", this, nameof(HttpRequestCompleted));
-                Error testConnection = _httpRequest.Request("https://raw.githubusercontent.com/sgervais333/MonsterHunterWorldBoardGameCompanionApp/main/Data/Data.json");
-                if (testConnection != Error.Ok)
-                {
-                    GD.PushError("An error occurred in the HTTP request.");
-                }
+            //    _httpRequest.Connect("request_completed", this, nameof(HttpRequestCompleted));
+            //    Error testConnection = _httpRequest.Request("https://raw.githubusercontent.com/sgervais333/MonsterHunterWorldBoardGameCompanionApp/main/Data/Data.json");
+            //    if (testConnection != Error.Ok)
+            //    {
+            //        GD.PushError("An error occurred in the HTTP request.");
+            //    }
             //}
+            _httpRequest.Connect("request_completed", this, nameof(HttpRequestCompleted));
+            Error testConnection = _httpRequest.Request("https://raw.githubusercontent.com/sgervais333/MonsterHunterWorldBoardGameCompanionApp/main/Data/Data.json");
+            if (testConnection != Error.Ok)
+            {
+                GD.PushError("An error occurred in the HTTP request.");
+            }
         }
 
         public void SaveData(byte[] body)
@@ -63,16 +70,33 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
 
         public void HttpRequestCompleted(int result, int responseCode, string[] headers, byte[] body)
         {
-            SaveData(body);
             LoadJson(JSON.Parse(Encoding.UTF8.GetString(body)));
+            SaveData(body);
         }
 
         public void LoadJson(JSONParseResult jsonResult)
         {
             if (!(jsonResult.Result is Dictionary response)) return;
-            Materials = (from Dictionary item in (Array)response["materials"] select new Material(item)).ToList();
-            Armors = (from Dictionary item in (Array)response["armors"] select new Armor(item)).ToList();
-            Weapons = (from Dictionary item in (Array)response["weapons"] select new Weapon(item)).ToList();
+            float version = (float)response["version"];
+            float versionFromCurrentFile = 0;
+            Dictionary responseFromCurrentFile = null;
+            if (CheckIfDataExist())
+            {
+                File file = new File();
+                file.Open(DataFile, File.ModeFlags.Read);
+                JSONParseResult jsonResultFromCurrentFile = JSON.Parse(file.GetAsText());
+
+                responseFromCurrentFile = jsonResultFromCurrentFile.Result as Dictionary;
+                versionFromCurrentFile = (float)responseFromCurrentFile["version"];
+
+                file.Close();
+            }
+
+            Dictionary responseToUse = version > versionFromCurrentFile ? response : responseFromCurrentFile;
+
+            Materials = (from Dictionary item in (Array)responseToUse["materials"] select new Material(item)).ToList();
+            Armors = (from Dictionary item in (Array)responseToUse["armors"] select new Armor(item)).ToList();
+            Weapons = (from Dictionary item in (Array)responseToUse["weapons"] select new Weapon(item)).ToList();
         }
     }
 }
