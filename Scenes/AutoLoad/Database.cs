@@ -3,17 +3,19 @@ using System.Linq;
 using System.Text;
 using Godot;
 using Godot.Collections;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts;
 using MonsterHunterWorldBoardGameCompanionApp.Scripts.Data;
 using Material = MonsterHunterWorldBoardGameCompanionApp.Scripts.Data.Material;
+using Path = System.IO.Path;
 
 namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
 {
     public class Database : Node
     {
-        public float Version;
         public List<Material> Materials;
         public List<Armor> Armors;
         public List<Weapon> Weapons;
+        public System.Collections.Generic.Dictionary<string, Texture> IconTextures;
 
         private const string DataFile = "user://data.json";
         private HTTPRequest _httpRequest;
@@ -23,12 +25,26 @@ namespace MonsterHunterWorldBoardGameCompanionApp.Scenes.AutoLoad
         {
             _httpRequest = GetNode<HTTPRequest>(nameof(HTTPRequest));
             RequestData();
+            PreloadTexture();
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(float delta)
         {
 
+        }
+
+        private void PreloadTexture()
+        {
+            IconTextures = new System.Collections.Generic.Dictionary<string, Texture>();
+            List<string> files = Utils.ListFilesInDirectory("res://Ressources/Items");
+
+            foreach (string file in files)
+            {
+                if (!file.EndsWith(".import")) continue;
+                string key = Path.GetFileNameWithoutExtension(file);
+                IconTextures.Add(Path.GetFileNameWithoutExtension(key), ResourceLoader.Load($"res://Ressources/Items/{key}") as Texture);
+            }
         }
 
         public bool CheckIfDataExist() => new File().FileExists(DataFile);

@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Godot;
 using Godot.Collections;
+using MonsterHunterWorldBoardGameCompanionApp.Scripts;
 using MonsterHunterWorldBoardGameCompanionApp.Scripts.Extensions;
 using Directory = Godot.Directory;
 using File = Godot.File;
@@ -17,7 +18,7 @@ public class LoadCampaign : Control
     public override void _Ready()
     {
         _itemList = GetNode<ItemList>("MarginContainer/VBoxContainer/Control/ItemList");
-        foreach (string file in ListFilesInDirectory())
+        foreach (string file in Utils.FilesInDirectory(CampaignData.CampaignFolder))
         {
             _itemList.AddItem(file);
         }
@@ -38,30 +39,6 @@ public class LoadCampaign : Control
         if (!(jsonResult.Result is Dictionary response)) return;
         this.GetCampaignData().LoadCampaign(response);
         file.Close();
-    }
-
-    public Array<string> ListFilesInDirectory()
-    {
-        Array<string> files = new Array<string>();
-        Directory dir = new Directory();
-        if (!dir.DirExists(CampaignData.CampaignFolder)) return new Array<string>();
-        dir.Open(CampaignData.CampaignFolder);
-
-        dir.ListDirBegin();
-        while (true)
-        {
-            string file = dir.GetNext();
-            if (file == string.Empty)
-            {
-                break;
-            }
-            if (!file.BeginsWith("."))
-            {
-                files.Add(file);
-            }
-        }
-        dir.ListDirEnd();
-        return files;
     }
 
     public void _on_Button_pressed()

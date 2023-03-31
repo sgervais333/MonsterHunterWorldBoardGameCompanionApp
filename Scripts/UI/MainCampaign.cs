@@ -78,8 +78,20 @@ public class MainCampaign : Control
                 item.Name = $"{material.Name}";
                 item.Visible = true;
                 item.GetNode<Label>("Name").Text = material.Name;
-                Texture texture = ResourceLoader.Load($"res://Ressources/Items/{(!string.IsNullOrEmpty(material.Image) ? material.Image : "Unknown")}.png") as Texture;
-                if (material.Image != string.Empty) item.GetNode<TextureRect>("Icon").Texture = texture;
+                ////Texture texture = ResourceLoader.Load($"res://Ressources/Items/{(!string.IsNullOrEmpty(material.Image) ? material.Image : "Unknown")}.png") as Texture;
+                if (material.Image != null && this.DataBase().IconTextures.ContainsKey(material.Image))
+                {
+                    item.GetNode<TextureRect>("Icon").Texture = this.DataBase().IconTextures[material.Image];
+                }
+                else if (material.Image != null && this.DataBase().IconTextures.ContainsKey("Unknown"))
+                { 
+                    item.GetNode<TextureRect>("Icon").Texture = this.DataBase().IconTextures["Unknown"];
+                }
+
+                //item.GetNode<TextureRect>("Icon").Texture = material.Image != null && this.DataBase().IconTextures.ContainsKey(material.Image)
+                //    ? this.DataBase().IconTextures[material.Image]
+                //    : this.DataBase().IconTextures["Unknown"];
+
                 Label qtyLabel = item.GetNode<Label>("MarginContainer/Number");
                 List<int> qties = new List<int>();
                 foreach (Player player in players)
