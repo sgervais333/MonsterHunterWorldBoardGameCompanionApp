@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/UI/MainCampaign.cs" type="Script" id=1]
 [ext_resource path="res://Ressources/Items/Potion_Green.png" type="Texture" id=2]
@@ -6,9 +6,6 @@
 [ext_resource path="res://Ressources/Items/Unknown.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=8]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.223529, 0.223529, 0.223529, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.388235, 0.388235, 0.388235, 0.396078 )
@@ -84,22 +81,6 @@ text = "+"
 margin_top = 182.0
 margin_right = 984.0
 margin_bottom = 324.0
-
-[node name="LineEdit2" type="LineEdit" parent="MarginContainer/VBoxContainer"]
-visible = false
-margin_top = 356.0
-margin_right = 984.0
-margin_bottom = 438.0
-
-[node name="Node2D" type="Node2D" parent="MarginContainer/VBoxContainer/LineEdit2"]
-z_index = 10
-
-[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer/LineEdit2/Node2D"]
-margin_top = 82.0
-margin_right = 984.0
-margin_bottom = 82.0
-custom_styles/bg = SubResource( 1 )
-auto_height = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 356.0

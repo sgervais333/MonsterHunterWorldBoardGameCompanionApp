@@ -75,7 +75,7 @@ public class MainCampaign : Control
 
             if (itemTemplate.Duplicate(0) is Control item)
             {
-                item.Name = $"{material.Name}";
+                item.Name = $"{material.Id}";
                 item.Visible = true;
                 item.GetNode<Label>("Name").Text = material.Name;
                 if (material.Image != null && this.DataBase().IconTextures.ContainsKey(material.Image))
@@ -108,6 +108,25 @@ public class MainCampaign : Control
         }
     }
 
+    private void UpdateQty(Control listContainer, Func<Player, Dictionary<int, int>> getPlayerItems, int idPlayer)
+    {
+        Player[] players = idPlayer == 0 ? this.GetCampaignData().Players.ToArray() : new[] { this.GetCampaignData().Players[idPlayer - 1] };
+        foreach (Control control in listContainer.GetChildren())
+        {
+            Label qtyLabel = control.GetNode<Label>("MarginContainer/Number");
+            List<int> qties = new List<int>();
+            int materialId = int.Parse(control.Name);
+            foreach (Player player in players)
+            {
+                qties.Add(getPlayerItems(player).ContainsKey(materialId)
+                    ? getPlayerItems(player)[materialId]
+                    : 0);
+            }
+
+            qtyLabel.Text = string.Join("/", qties);
+        }
+    }
+
     private void UpdateCampaign()
     {
         this.GetCampaignData().SaveCampaign();
@@ -131,7 +150,6 @@ public class MainCampaign : Control
 
     public void _on_ItemPlus_pressed(Label qtyLabel, int id, int qtyToAdd, int materialOrOtherOrParts)
     {
-        //Player player = this.GetCampaignData().Players[_optionButtonPlayer.Selected];
         Player[] players = _optionButtonPlayer.Selected == 0 ? this.GetCampaignData().Players.ToArray() : new[] { this.GetCampaignData().Players[_optionButtonPlayer.Selected - 1] };
         List<int> qties = new List<int>();
         foreach (Player player in players)
@@ -172,7 +190,9 @@ public class MainCampaign : Control
 
     public void _on_OptionButtonPlayer_item_selected(int index)
     {
-        SetInfoForPlayer(index);
+        UpdateQty(_commonItemsListContainer, player => player.CommonItems, index);
+        UpdateQty(_otherItemsListContainer, player => player.OtherItems, index);
+        UpdateQty(_materialItemsListContainer, player => player.MaterialItems, index);
     }
 
     public void _on_CommonExpand_toggled(bool buttonPressed)
