@@ -12,6 +12,7 @@ public class MainCampaign : Control
 {
     private CampaignData _campaignData;
     private Label _numberOfPotionsLabel;
+    private Label _campaignDayTrackerLabel;
     private OptionButton _optionButtonPlayer;
     private Control _itemTemplate;
     private Control _commonItemsContainer;
@@ -28,6 +29,7 @@ public class MainCampaign : Control
     {
         _campaignData = this.GetCampaignData();
         _numberOfPotionsLabel = GetNode<Label>("MarginContainer/VBoxContainer/Control/HBoxContainer/TextureRect/NumberOfPotions");
+        _campaignDayTrackerLabel = GetNode<Label>("MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/TextureRect/CampaignDayTracker");
         _optionButtonPlayer = GetNode<OptionButton>("MarginContainer/VBoxContainer/OptionButtonPlayer");
         //TODO: Devrait etre unique par container
         _itemTemplate = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Templates/ItemTemplate");
@@ -53,6 +55,7 @@ public class MainCampaign : Control
         SetInfoForPlayer(_optionButtonPlayer.Selected);
 
         _numberOfPotionsLabel.Text = _campaignData.NumberOfPotions.ToString();
+        _campaignDayTrackerLabel.Text = _campaignData.CampaignDayTracker.ToString();
     }
 
     private void SetInfoForPlayer(int idPlayer)
@@ -145,6 +148,21 @@ public class MainCampaign : Control
         if (_campaignData.NumberOfPotions == 3) return;
         _campaignData.NumberOfPotions++;
         _numberOfPotionsLabel.Text = _campaignData.NumberOfPotions.ToString();
+        UpdateCampaign();
+    }
+
+    public void _on_CampaignDayTrackerMinus_pressed()
+    {
+        if (_campaignData.CampaignDayTracker == 0) return;
+        _campaignData.CampaignDayTracker--;
+        _campaignDayTrackerLabel.Text = _campaignData.CampaignDayTracker.ToString();
+        UpdateCampaign();
+    }
+
+    public void _on_CampaignDayTrackerPlus_pressed()
+    {
+        _campaignData.CampaignDayTracker++;
+        _campaignDayTrackerLabel.Text = _campaignData.CampaignDayTracker.ToString();
         UpdateCampaign();
     }
 

@@ -10,6 +10,7 @@ public class CampaignData : Node, IDictionable
 
     public bool Loaded = false;
     public string CampaignName;
+    public int CampaignDayTracker;
     public int NumberOfPotions;
     public List<Player> Players;
 
@@ -31,6 +32,7 @@ public class CampaignData : Node, IDictionable
     {
         CampaignName = dict.Contains("CampaignName") ? (string)dict["CampaignName"] : null;
         NumberOfPotions = (int)(dict.Contains("NumberOfPotions") ? (float)dict["NumberOfPotions"] : 0f);
+        CampaignDayTracker = (int)(dict.Contains("CampaignDayTracker") ? (float)dict["CampaignDayTracker"] : 0f);
         Players = (from Dictionary item in (Array)dict["Players"] select new Player(item)).ToList();
         Loaded = true;
     }
@@ -60,6 +62,7 @@ public class CampaignData : Node, IDictionable
         {
             {nameof(CampaignName), CampaignName},
             {nameof(NumberOfPotions), NumberOfPotions},
+            {nameof(CampaignDayTracker), CampaignDayTracker},
             {nameof(Players), Players.ToGodotArray()},
         };
 

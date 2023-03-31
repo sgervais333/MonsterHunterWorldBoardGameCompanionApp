@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/UI/MainCampaign.cs" type="Script" id=1]
 [ext_resource path="res://Ressources/Items/Potion_Green.png" type="Texture" id=2]
 [ext_resource path="res://Ressources/Fonts/ArialSmall.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Ressources/UI/CampaignIcon.png" type="Texture" id=4]
 [ext_resource path="res://Ressources/Items/Unknown.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=8]
@@ -40,6 +41,47 @@ margin_bottom = 150.0
 margin_right = 984.0
 margin_bottom = 150.0
 alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Control/HBoxContainer"]
+margin_right = 522.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+
+[node name="CampaignDayTrackerMinus" type="Button" parent="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+text = "-"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="CampaignDayTracker" type="Label" parent="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "0"
+align = 1
+valign = 1
+
+[node name="CampaignDayTrackerPlus" type="Button" parent="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer"]
+margin_left = 308.0
+margin_right = 458.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+text = "+"
 
 [node name="PotionMinus" type="Button" parent="MarginContainer/VBoxContainer/Control/HBoxContainer"]
 margin_left = 526.0
@@ -361,6 +403,8 @@ margin_right = 984.0
 size_flags_vertical = 0
 custom_constants/separation = 8
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/CampaignDayTrackerMinus" to="." method="_on_CampaignDayTrackerMinus_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/CampaignDayTrackerPlus" to="." method="_on_CampaignDayTrackerPlus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionMinus" to="." method="_on_PotionMinus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionPlus" to="." method="_on_PotionPlus_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButtonPlayer" to="." method="_on_OptionButtonPlayer_item_selected"]
