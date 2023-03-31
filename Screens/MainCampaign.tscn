@@ -174,6 +174,7 @@ margin_left = -6.0
 margin_top = 1143.0
 margin_right = 978.0
 margin_bottom = 1287.0
+size_flags_horizontal = 3
 
 [node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
 margin_right = 144.0
@@ -187,9 +188,11 @@ margin_left = 148.0
 margin_top = 36.0
 margin_right = 564.0
 margin_bottom = 108.0
+rect_min_size = Vector2( 430, 150 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Malachite Ore"
+valign = 1
 autowrap = true
 
 [node name="MarginContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
@@ -224,10 +227,9 @@ margin_bottom = 144.0
 rect_min_size = Vector2( 144, 144 )
 text = "+"
 
-[node name="Common" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer"]
+[node name="Common" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer"]
 margin_right = 984.0
 size_flags_vertical = 3
-custom_constants/separation = 8
 
 [node name="OtherItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 1106.0
@@ -257,64 +259,9 @@ custom_styles/panel = SubResource( 2 )
 [node name="Templates" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer"]
 margin_right = 984.0
 
-[node name="ItemTemplate" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates"]
-visible = false
-margin_left = -6.0
-margin_top = 1143.0
-margin_right = 978.0
-margin_bottom = 1287.0
-
-[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_right = 144.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-texture = ExtResource( 5 )
-expand = true
-
-[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_left = 148.0
-margin_top = 36.0
-margin_right = 564.0
-margin_bottom = 108.0
-size_flags_horizontal = 3
-text = "Malachite Ore"
-autowrap = true
-
-[node name="MarginContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_left = 568.0
-margin_right = 984.0
-margin_bottom = 144.0
-size_flags_horizontal = 3
-alignment = 2
-
-[node name="MinusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 24.0
-margin_right = 168.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-text = "-"
-
-[node name="Number" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 172.0
-margin_top = 24.0
-margin_right = 268.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 96, 96 )
-text = "0"
-align = 1
-valign = 1
-
-[node name="PlusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 272.0
-margin_right = 416.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-text = "+"
-
-[node name="Other" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer"]
+[node name="Other" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer"]
 margin_right = 984.0
 size_flags_vertical = 0
-custom_constants/separation = 8
 
 [node name="MaterialItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 1280.0
@@ -344,65 +291,11 @@ custom_styles/panel = SubResource( 2 )
 [node name="Templates" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer"]
 margin_right = 984.0
 
-[node name="ItemTemplate" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates"]
-visible = false
-margin_left = -6.0
-margin_top = 1143.0
-margin_right = 978.0
-margin_bottom = 1287.0
-
-[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_right = 144.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-texture = ExtResource( 5 )
-expand = true
-
-[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_left = 148.0
-margin_top = 36.0
-margin_right = 564.0
-margin_bottom = 108.0
-size_flags_horizontal = 3
-text = "Malachite Ore"
-autowrap = true
-
-[node name="MarginContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate"]
-margin_left = 568.0
-margin_right = 984.0
-margin_bottom = 144.0
-size_flags_horizontal = 3
-alignment = 2
-
-[node name="MinusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 24.0
-margin_right = 168.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-text = "-"
-
-[node name="Number" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 172.0
-margin_top = 24.0
-margin_right = 268.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 96, 96 )
-text = "0"
-align = 1
-valign = 1
-
-[node name="PlusButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Templates/ItemTemplate/MarginContainer"]
-margin_left = 272.0
-margin_right = 416.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
-text = "+"
-
-[node name="Material" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer"]
+[node name="Material" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer"]
 margin_right = 984.0
 size_flags_vertical = 0
-custom_constants/separation = 8
 
+[connection signal="resized" from="." to="." method="_on_MainCampaign_resized"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/CampaignDayTrackerMinus" to="." method="_on_CampaignDayTrackerMinus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/CampaignDayTrackerPlus" to="." method="_on_CampaignDayTrackerPlus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionMinus" to="." method="_on_PotionMinus_pressed"]

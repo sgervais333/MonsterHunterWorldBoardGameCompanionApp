@@ -18,9 +18,9 @@ public class MainCampaign : Control
     private Control _commonItemsContainer;
     private Control _otherItemsContainer;
     private Control _materialItemsContainer;
-    private Control _commonItemsListContainer;
-    private Control _otherItemsListContainer;
-    private Control _materialItemsListContainer;
+    private GridContainer _commonItemsListContainer;
+    private GridContainer _otherItemsListContainer;
+    private GridContainer _materialItemsListContainer;
     private IReadOnlyDictionary<int, Material> _commonMaterials;
     private IReadOnlyDictionary<int, Material> _otherMaterials;
     private IReadOnlyDictionary<int, Material> _monsterPartsMaterials;
@@ -33,11 +33,11 @@ public class MainCampaign : Control
         _optionButtonPlayer = GetNode<OptionButton>("MarginContainer/VBoxContainer/OptionButtonPlayer");
         //TODO: Devrait etre unique par container
         _itemTemplate = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Templates/ItemTemplate");
+        _commonItemsListContainer = GetNode<GridContainer>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Common");
         _commonItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems");
-        _commonItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Common");
-        _otherItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Other");
+        _otherItemsListContainer = GetNode<GridContainer>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/ScrollContainer/PanelContainer/Other");
         _otherItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems");
-        _materialItemsListContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Material");
+        _materialItemsListContainer = GetNode<GridContainer>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/ScrollContainer/PanelContainer/Material");
         _materialItemsContainer = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems");
 
         _optionButtonPlayer.AddItem("All", -1);
@@ -56,6 +56,7 @@ public class MainCampaign : Control
 
         _numberOfPotionsLabel.Text = _campaignData.NumberOfPotions.ToString();
         _campaignDayTrackerLabel.Text = _campaignData.CampaignDayTracker.ToString();
+        _on_MainCampaign_resized();
     }
 
     private void SetInfoForPlayer(int idPlayer)
@@ -237,5 +238,13 @@ public class MainCampaign : Control
         if (!buttonPressed) _materialItemsContainer.SizeFlagsVertical -= (int)SizeFlags.ExpandFill;
     }
 
+    public void _on_MainCampaign_resized()
+    {
+        Vector2 size = GetViewportRect().Size;
+        if (_commonItemsListContainer == null || _otherItemsListContainer == null || _materialItemsListContainer == null) return;
+        _commonItemsListContainer.Columns = (int)(size.x / 984);
+        _otherItemsListContainer.Columns = (int)(size.x / 984);
+        _materialItemsListContainer.Columns = (int)(size.x / 984);
+    }
 
 }
