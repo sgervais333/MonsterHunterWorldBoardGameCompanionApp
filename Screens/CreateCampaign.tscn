@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/UI/CreateCampaign.cs" type="Script" id=1]
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/NormalSmall.tres" type="StyleBox" id=2]
@@ -8,12 +8,28 @@
 [ext_resource path="res://Ressources/Theme/StyleBoxesSmall/DisabledSmall.tres" type="StyleBox" id=6]
 [ext_resource path="res://Scenes/DefaultBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Ressources/Theme/Theme.tres" type="Theme" id=8]
+[ext_resource path="res://Ressources/Weapons/SwordAndShield_White.png" type="Texture" id=9]
+[ext_resource path="res://Ressources/Weapons/Bow_White.png" type="Texture" id=10]
+[ext_resource path="res://Ressources/Weapons/ChargeBlade_White.png" type="Texture" id=11]
+[ext_resource path="res://Ressources/Weapons/GreatSword_White.png" type="Texture" id=12]
+[ext_resource path="res://Ressources/Weapons/GunLance_White.png" type="Texture" id=13]
+[ext_resource path="res://Ressources/Weapons/Hammer_White.png" type="Texture" id=14]
+[ext_resource path="res://Ressources/Weapons/HeavyBowgun_White.png" type="Texture" id=15]
+[ext_resource path="res://Ressources/Weapons/HuntingHorn_White.png" type="Texture" id=16]
+[ext_resource path="res://Ressources/Weapons/InsectGlaive_White.png" type="Texture" id=17]
+[ext_resource path="res://Ressources/Weapons/Lance_White.png" type="Texture" id=18]
+[ext_resource path="res://Ressources/Weapons/LightBowgun_White.png" type="Texture" id=19]
+[ext_resource path="res://Ressources/Weapons/LongSword_White.png" type="Texture" id=20]
+[ext_resource path="res://Ressources/Weapons/SwitchAxe_White.png" type="Texture" id=21]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.384314, 0.384314, 0.384314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.239216, 0.333333, 0.705882, 0.941176 )
 
 [node name="CreateCampaign" type="Control"]
 anchor_right = 1.0
@@ -40,7 +56,7 @@ follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 margin_right = 984.0
-margin_bottom = 649.0
+margin_bottom = 677.0
 size_flags_horizontal = 3
 custom_constants/separation = 3
 
@@ -76,7 +92,7 @@ text = "Ok"
 [node name="Players" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 margin_top = 163.0
 margin_right = 984.0
-margin_bottom = 649.0
+margin_bottom = 677.0
 custom_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players"]
@@ -103,13 +119,13 @@ text = "+"
 [node name="Player1" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players"]
 margin_top = 104.0
 margin_right = 984.0
-margin_bottom = 486.0
+margin_bottom = 514.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1"]
 margin_right = 984.0
-margin_bottom = 382.0
+margin_bottom = 410.0
 mouse_filter = 1
 custom_constants/margin_right = 6
 custom_constants/margin_top = 0
@@ -119,7 +135,7 @@ custom_constants/margin_bottom = 6
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer"]
 margin_left = 6.0
 margin_right = 978.0
-margin_bottom = 376.0
+margin_bottom = 404.0
 size_flags_horizontal = 3
 custom_constants/separation = 14
 
@@ -150,26 +166,39 @@ text = "X"
 [node name="PlayerName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
 margin_top = 102.0
 margin_right = 972.0
-margin_bottom = 184.0
+margin_bottom = 212.0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
-margin_top = 5.0
+margin_top = 19.0
 margin_right = 189.0
-margin_bottom = 77.0
+margin_bottom = 91.0
 text = "Name:"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
 margin_left = 193.0
-margin_right = 972.0
-margin_bottom = 82.0
+margin_right = 858.0
+margin_bottom = 110.0
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
 
-[node name="HunterName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
-margin_top = 198.0
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PlayerName"]
+margin_left = 862.0
 margin_right = 972.0
-margin_bottom = 280.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 110, 110 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/disabled = ExtResource( 6 )
+custom_styles/normal = ExtResource( 2 )
+icon = ExtResource( 9 )
+expand_icon = true
+
+[node name="HunterName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
+margin_top = 226.0
+margin_right = 972.0
+margin_bottom = 308.0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/HunterName"]
 margin_top = 5.0
@@ -186,9 +215,9 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="PalicoName" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer"]
-margin_top = 294.0
+margin_top = 322.0
 margin_right = 972.0
-margin_bottom = 376.0
+margin_bottom = 404.0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Players/Player1/MarginContainer/VBoxContainer/PalicoName"]
 margin_top = 5.0
@@ -203,6 +232,176 @@ margin_bottom = 82.0
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
+
+[node name="Popup" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -554.0
+margin_top = -312.0
+margin_right = 554.0
+margin_bottom = 312.0
+custom_constants/margin_right = 64
+custom_constants/margin_top = 64
+custom_constants/margin_left = 64
+custom_constants/margin_bottom = 64
+
+[node name="PanelContainer" type="PanelContainer" parent="Popup/MarginContainer"]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 1044.0
+margin_bottom = 562.0
+rect_min_size = Vector2( 980, 476 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/MarginContainer/PanelContainer"]
+margin_right = 980.0
+margin_bottom = 498.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="GridContainer" type="GridContainer" parent="Popup/MarginContainer/PanelContainer/MarginContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 964.0
+margin_bottom = 482.0
+custom_constants/vseparation = 8
+custom_constants/hseparation = 8
+columns = 6
+
+[node name="Bow" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 10 )
+expand_icon = true
+
+[node name="ChargeBlade" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 158.0
+margin_right = 308.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 11 )
+expand_icon = true
+
+[node name="GreatSword" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 316.0
+margin_right = 466.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 12 )
+expand_icon = true
+
+[node name="GunLance" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 474.0
+margin_right = 624.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 13 )
+expand_icon = true
+
+[node name="Hammer" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 632.0
+margin_right = 782.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 14 )
+expand_icon = true
+
+[node name="HeavyBowgun" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 790.0
+margin_right = 940.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 15 )
+expand_icon = true
+
+[node name="HuntingHorn" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 158.0
+margin_right = 150.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 16 )
+expand_icon = true
+
+[node name="InsectGlaive" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 158.0
+margin_top = 158.0
+margin_right = 308.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 17 )
+expand_icon = true
+
+[node name="Lance" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 316.0
+margin_top = 158.0
+margin_right = 466.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 18 )
+expand_icon = true
+
+[node name="LightBowgun" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 474.0
+margin_top = 158.0
+margin_right = 624.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 19 )
+expand_icon = true
+
+[node name="LongSword" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 632.0
+margin_top = 158.0
+margin_right = 782.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 20 )
+expand_icon = true
+
+[node name="SwitchAxe" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 790.0
+margin_top = 158.0
+margin_right = 940.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 21 )
+expand_icon = true
+
+[node name="SwordAndShield" type="Button" parent="Popup/MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 316.0
+margin_right = 150.0
+margin_bottom = 466.0
+rect_min_size = Vector2( 150, 150 )
+custom_constants/hseparation = 7
+icon = ExtResource( 9 )
+expand_icon = true
 
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CreateCampaign" to="." method="_on_CreateCampaign_pressed"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/Players/HBoxContainer/AddPlayer" to="." method="_on_AddPlayer_pressed"]
