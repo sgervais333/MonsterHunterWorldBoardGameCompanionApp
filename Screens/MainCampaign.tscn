@@ -119,10 +119,21 @@ margin_bottom = 150.0
 rect_min_size = Vector2( 150, 150 )
 text = "+"
 
-[node name="OptionButtonPlayer" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 182.0
 margin_right = 984.0
 margin_bottom = 324.0
+
+[node name="OptionButtonPlayer" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 850.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 854.0
+margin_right = 984.0
+margin_bottom = 142.0
+text = "..."
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 356.0
@@ -300,7 +311,7 @@ size_flags_vertical = 0
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/CampaignDayTrackerPlus" to="." method="_on_CampaignDayTrackerPlus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionMinus" to="." method="_on_PotionMinus_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Control/HBoxContainer/PotionPlus" to="." method="_on_PotionPlus_pressed"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButtonPlayer" to="." method="_on_OptionButtonPlayer_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/OptionButtonPlayer" to="." method="_on_OptionButtonPlayer_item_selected"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/CommonExpand" to="." method="_on_CommonExpand_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/OtherItems/OtherExpand" to="." method="_on_OtherExpand_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MaterialItems/MaterialExpand" to="." method="_on_MaterialExpand_toggled"]

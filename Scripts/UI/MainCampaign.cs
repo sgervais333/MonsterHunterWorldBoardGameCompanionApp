@@ -30,7 +30,7 @@ public class MainCampaign : Control
         _campaignData = this.GetCampaignData();
         _numberOfPotionsLabel = GetNode<Label>("MarginContainer/VBoxContainer/Control/HBoxContainer/TextureRect/NumberOfPotions");
         _campaignDayTrackerLabel = GetNode<Label>("MarginContainer/VBoxContainer/Control/HBoxContainer/HBoxContainer/TextureRect/CampaignDayTracker");
-        _optionButtonPlayer = GetNode<OptionButton>("MarginContainer/VBoxContainer/OptionButtonPlayer");
+        _optionButtonPlayer = GetNode<OptionButton>("MarginContainer/VBoxContainer/HBoxContainer/OptionButtonPlayer");
         //TODO: Devrait etre unique par container
         _itemTemplate = GetNode<Control>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Templates/ItemTemplate");
         _commonItemsListContainer = GetNode<GridContainer>("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CommonItems/ScrollContainer/PanelContainer/Common");

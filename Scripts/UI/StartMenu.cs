@@ -26,12 +26,6 @@ public class StartMenu : Control
         }
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
-
     public void _on_New_Game_pressed()
     {
         this.ChangeScene("res://Screens/CreateCampaign.tscn");
